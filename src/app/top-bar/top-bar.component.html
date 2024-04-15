@@ -1,0 +1,12 @@
+<div
+  class="z-20 py-3 px-5 fixed top-0 max-w-[100vw] min-w-[100vw] h-[10vh] border-b-2 flex items-center justify-between bg-white">
+  <div>
+    <img src="../assets/fylelogo.svg" alt="fyle logo" class="h-6">
+  </div>
+  <div
+    class="p-3 min-h-[5vh] min-w-[50vw] max-w-[50vw] border-2 rounded-lg flex items-center px-4 hover:border-[#ff2e63]">
+    <ng-icon name="ionSearchOutline"></ng-icon>
+    <input placeholder="Search..." type="text" class="w-full outline-none ml-4 text-sm" [(ngModel)]="searchQuery"
+      (keydown.enter)="onSearch()" />
+  </div>
+</div>
