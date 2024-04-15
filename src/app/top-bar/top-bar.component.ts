@@ -7,9 +7,17 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class TopBarComponent {
   // fyleLogoImagePath = 'assets/fylelogo.svg';
-  searchQuery: string = '';
+  _searchQuery: string = '';
   @Output() searchQueryOutput = new EventEmitter<string>();
-  searchSubmitted:boolean = true;
+  searchSubmitted:boolean = false;
+  get searchQuery(): string {
+    return this._searchQuery;
+  }
+
+  set searchQuery(value: string) {
+    this._searchQuery = value;
+    this.searchQueryOutput.emit(value);
+  }
   onSearch():void {
     // this.searchSubmitted = false;
     console.log(this.searchQuery);

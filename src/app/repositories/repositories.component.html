@@ -1,14 +1,7 @@
 <div class="w-full h-full overflow-x-hidden">
     <p class="text-[1.4rem] font-semibold">Public Repositories</p>
     <div class="w-[90vw] flex justify-center">
-        <div
-            class="h-[3rem] md:w-[30%] w-[70%] mt-6 border-2 rounded-lg bg-white flex items-center px-3 justify-between">
-            <input type="text" placeholder="Search for the repositories of this user"
-                class="p-2 min-w-[70%] outline-none text-[0.8rem]">
-            <div class="py-1 px-2 bg-[#ff2e63] rounded-lg">
-                <ng-icon name="ionSearchOutline" class="text-white font-bold"></ng-icon>
-            </div>
-        </div>
+        
     </div>
     <div class="mt-3 flex flex-col md:flex-row gap-3 items-center md:justify-between h-max max-w-[80vw] md:max-w-full">
         <div
@@ -36,22 +29,30 @@
         </div>
 
         <div
+            class="h-[3rem] md:w-[30%] lg:w-[30%] w-full border-2 rounded-lg bg-white flex items-center px-3 justify-between">
+            <input type="text" [(ngModel)]="searchQuery" placeholder="Search for the repositories of this user" (keydown.enter)="onSearch()"
+                class="p-2 min-w-[70%] outline-none text-[0.8rem]">
+            <div class="py-1 px-2 bg-[#ff2e63] rounded-lg" (click)="onSearch()" >
+                <ng-icon name="ionSearchOutline" class="text-white font-bold"></ng-icon>
+            </div>
+        </div>
+        <div
             class="flex gap-2 items-center py-2 px-3 bg-white rounded-lg border-[0.09rem] border-[#ff2e63] text-[0.8rem]">
             <div class="flex gap-2">
-                <button class="bg-[#ff2e63] py-1 px-2 rounded-lg ">
+                <div class="bg-[#ff2e63] py-1 px-2 rounded-lg "  (click)="onPageChange('prev')" >
                     <ng-icon name="ionArrowBack" class="text-white"></ng-icon>
-                </button>
-                <div class="py-1 px-2 border-2 rounded-lg">
-                    <p>1</p>
                 </div>
-                <button class="bg-[#ff2e63] py-1 px-2 rounded-lg ">
+                <div class="py-1 px-2 border-2 rounded-lg">
+                    <p>{{pageNumber}}</p>
+                </div>
+                <div class="bg-[#ff2e63] py-1 px-2 rounded-lg " (click)="onPageChange('next')">
                     <ng-icon name="ionArrowForward" class="text-white"></ng-icon>
-                </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div style="overflow-x: hidden;">
+    <div style="overflow-x: hidden;" class="flex justify-center">
         <div *ngIf="isLoading" class="mt-10 overflow-x-hidden">
             <div class="hidden md:flex justify-between ">
                 <ng-container *ngFor="let i of [1,2,3]">
@@ -63,10 +64,10 @@
                 class="md:hidden block"></ngx-skeleton-loader>
         </div>
 
-        <div *ngIf="!isLoading" class="mt-10 w-full flex flex-wrap justify-between gap-3 mb-10">
+        <div *ngIf="!isLoading" class="mt-10 lg:w-max lg:max-w-[80vw] flex flex-col lg:flex-row lg:flex-wrap gap-4 mb-10">
             <div *ngFor="let repo of repositoriesData">
-                <div class="pt-5 pr-2 pl-4 min-h-[12rem] max-h-[12rem] w-[25vw] bg-white shadow-sm rounded-lg">
-                    <div class="flex gap-2 items-center">
+                <div class="pt-5 pr-2 pl-4 min-h-[12rem] max-h-max max-w-[80vw] w-max lg:w-[25vw] bg-white shadow-sm rounded-lg">
+                    <div class="flex gap-2 items-center cursor-pointer" (click)="onRepoNameClick()">
                         <img src="../../assets/repo-icon.svg" alt="" class="h-[1.4rem] w-auto">
                         <p class="line-clamp-1 font-semibold">{{repo.name}}</p>
                         <ng-icon name="ionOpenOutline"></ng-icon>
@@ -81,10 +82,10 @@
                                 <p class="m-2 text-[0.8rem] mt-3 text-white">No topics available</p>
                             </div>
                         </div>
-                        <div class="flex gap-2 flex-wrap">
-                            <div *ngFor="let topic of repo.topics">
-                                    <div class="bg-[#FF2E63] h-max w-max rounded-md">
-                                        <p class="m-2 text-[0.8rem] mt-3 text-white">{{topic}}</p>
+                        <div class="mt-6 flex gap-2 flex-wrap">
+                            <div *ngFor="let topic of repo.topics; let i = index">
+                                    <div [style.backgroundColor]="getRandomColor(i)" class="h-max w-max rounded-md py-[0.1rem] flex items-center">
+                                        <p class="mx-2 text-[0.8rem] text-white font-semibold">{{topic}}</p>
                                 </div>
                             </div>
                         </div>

@@ -23,6 +23,7 @@
     "@ng-icons/font-awesome": "^27.3.0",
     "@ng-icons/ionicons": "^27.3.0",
     "@ng-icons/material-icons": "^27.3.0",
+    "ai-test-gen-angular": "^0.0.18",
     "ngx-skeleton-loader": "7.0.0",
     "octokit": "^3.1.1",
     "rxjs": "~7.8.0",

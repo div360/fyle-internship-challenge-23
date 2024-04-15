@@ -11,12 +11,14 @@ import { FormsModule } from '@angular/forms';
 
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { RepositoriesComponent } from './repositories/repositories.component';
+import { ProfileInfoComponent } from './profile-info/profile-info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
-    RepositoriesComponent
+    RepositoriesComponent,
+    ProfileInfoComponent
   ],
   imports: [
     BrowserModule,

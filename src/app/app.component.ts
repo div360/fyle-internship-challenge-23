@@ -22,25 +22,7 @@ export class AppComponent implements OnInit {
   @ViewChild(TopBarComponent) topBar: any;
 
   ngOnInit() {
-    this.apiService.getUser('c9s').subscribe({
-      next: (userData) => {
-        this.userData = userData;
-        this.isLoading = false;
-        console.log(this.userData);
-      },
-      error: (error) => {
-        if (error instanceof ErrorEvent) {
-          console.error('An error occurred:', error.error.message);
-        } else {
-          console.error(
-            'Server returned code: ',
-            error.status,
-            'error message is: ',
-            error.error.message
-          );
-        }
-      },
-    });
+
   }
 
   getUserData(githubUsername: string): void {
@@ -67,7 +49,7 @@ export class AppComponent implements OnInit {
     this.apiService.getStarReposCount(githubUsername).subscribe({
       next: (starReposCount) => {
         this.starred_repos_count = starReposCount;
-        console.log(this.userData);
+        console.log(this.starred_repos_count);
       },
       error: (error) => {
         if (error instanceof ErrorEvent) {
@@ -87,9 +69,5 @@ export class AppComponent implements OnInit {
   onSearch(query: string) {
     this.isLoading = true;
     this.getUserData(query);
-  }
-
-  openLink(): void {
-    window.open(this.userData.html_url, '_blank');
   }
 }
