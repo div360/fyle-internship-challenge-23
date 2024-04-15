@@ -9,3 +9,4 @@ https://www.loom.com/share/a320860a01a048c99f2c707f588bb888?sid=4b80a4d3-90fa-4f
 
 - For running the tests simply type `ng test` in the terminal
  
+- This Single Page Application is also mobile friendly
