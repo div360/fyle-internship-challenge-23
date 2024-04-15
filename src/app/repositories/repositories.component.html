@@ -64,7 +64,7 @@
                 class="md:hidden block"></ngx-skeleton-loader>
         </div>
 
-        <div *ngIf="!isLoading" class="mt-10 lg:w-max lg:max-w-[80vw] flex flex-col lg:flex-row lg:flex-wrap gap-4 mb-10">
+        <div *ngIf="!isLoading && repositoriesData.length!=0" class="mt-10 lg:w-max lg:max-w-[80vw] flex flex-col lg:flex-row lg:flex-wrap gap-4 mb-10">
             <div *ngFor="let repo of repositoriesData">
                 <div class="pt-5 pr-2 pl-4 min-h-[12rem] max-h-max max-w-[80vw] w-max lg:w-[25vw] bg-white shadow-sm rounded-lg">
                     <div class="flex gap-2 items-center cursor-pointer" (click)="onRepoNameClick()">
@@ -92,6 +92,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div *ngIf="!isLoading && repositoriesData.length==0" class="mt-10">
+            <p class="text-[1.2rem] font-semibold">No repositories found</p>
         </div>
 
     </div>
