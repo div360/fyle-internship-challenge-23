@@ -30,12 +30,14 @@ export class ApiService {
       .pipe(
         map((response: any) => {
           const linkHeader = response.headers.get('Link');
+          console.log(response.headers);
+          console.log(linkHeader);
           if (linkHeader) {
             const lastLink = linkHeader
               .split(', ')
               .find((s: string) => s.endsWith('rel="last"'));
             const lastPageNumber = lastLink.match(/&page=(\d+)/)[1];
-            return parseInt(lastPageNumber, 10) * 30;
+            return parseInt(lastPageNumber, 10);
           } else {
             return 0;
           }

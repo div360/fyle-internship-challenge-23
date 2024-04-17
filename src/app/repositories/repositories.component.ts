@@ -1,8 +1,5 @@
 import {
   Component,
-  ElementRef,
-  ViewChild,
-  AfterViewChecked,
   ChangeDetectorRef,
   Input,
   OnChanges,
@@ -29,9 +26,9 @@ export class RepositoriesComponent implements OnChanges {
   nextDisabled: boolean = false;
   prevDisabled: boolean = true;
   searchQuery: string = '';
+  anotherError: boolean = false;
 
   @Input() githubUsername!: string;
-  @Input() searchSubmitted: boolean = false;
 
   ngOnChanges(): void {
     if (this.githubUsername) {
@@ -57,8 +54,8 @@ export class RepositoriesComponent implements OnChanges {
       .getRepos(this.githubUsername, this.reposPerPage, this.pageNumber)
       .subscribe({
         next: (repositoriesData) => {
-          this.repositoriesData = repositoriesData.body.items;
-          this.noOfPages = Math.ceil(repositoriesData.body.total_count / this.reposPerPage);
+          this.repositoriesData = repositoriesData.body?.items;
+          this.noOfPages = Math.ceil(repositoriesData.body?.total_count / this.reposPerPage);
           this.isLoading = false;
           console.log(this.repositoriesData);
         },
@@ -72,6 +69,9 @@ export class RepositoriesComponent implements OnChanges {
               'error message is: ',
               error.error.message
             );
+            if (error.status !== 404) {
+              this.anotherError = true;
+            }
           }
         },
       });
@@ -111,8 +111,8 @@ export class RepositoriesComponent implements OnChanges {
   onSearch():void{
     this.apiService.getSearchedReposForUser(this.githubUsername, this.reposPerPage, this.pageNumber, this.searchQuery).subscribe({
       next: (repositoriesData) => {
-        this.repositoriesData = repositoriesData.body.items;
-        this.reposPerPage = repositoriesData.body.total_count;
+        this.repositoriesData = repositoriesData.body?.items;
+        this.reposPerPage = repositoriesData.body?.total_count;
         this.noOfPages = Math.ceil(repositoriesData.body.total_count / this.reposPerPage);
         this.isLoading = false;
         console.log(this.repositoriesData);
@@ -127,6 +127,9 @@ export class RepositoriesComponent implements OnChanges {
             'error message is: ',
             error.error.message
           );
+          if (error.status !== 404) {
+            this.anotherError = true;
+          }
         }
       },
     })

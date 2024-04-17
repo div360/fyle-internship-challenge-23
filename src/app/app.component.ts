@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   userData: UserDataRepresentation = {};
   starred_repos_count: number = 0;
   isLoading: boolean = false;
+  userNotFound: boolean = false;
 
   @ViewChild(TopBarComponent) topBar: any;
 
@@ -42,6 +43,9 @@ export class AppComponent implements OnInit {
             'error message is: ',
             error.error.message
           );
+          if (error.status === 404) {
+            this.userNotFound = true;
+          }
         }
       },
     });

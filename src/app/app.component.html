@@ -17,7 +17,25 @@ background: linear-gradient(124deg, rgba(255,214,247,1) 0%, rgba(243,242,250,1) 
       </div>
     </div>
   </div>
-  <div *ngIf="topBar?.searchSubmitted" class="-z-10 pt-[15vh] min-h-[100vh] max-w-[100vw] max-h-max  overflow-x-hidden">
+  <div *ngIf="topBar?.searchSubmitted && userNotFound">
+    <div class="z-10 min-h-[100vh] max-w-[100vw] max-h-max flex justify-center items-center">
+      <div class="h-[100%] w-[100%] flex flex-col justify-center items-center">
+        <div>
+          <div class="flex items-center text-[1.5rem] font-semibold mb-10">
+            <p class="">User&nbsp;</p>
+            <p class="text-[#ff2e63]">{{ topBar.searchQuery }}</p>
+            <p class="">&nbsp;not found</p>
+          </div>
+        </div>
+        <div class="flex flex-col items-center gap-6">
+          <img src="/assets/githublogo.svg" alt="" class="h-28">
+          <p class="font-semibold text-[1.1rem] max-w-xs text-center">Search for valid github username to show the profile
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="topBar?.searchSubmitted && !userNotFound" class="-z-10 pt-[15vh] min-h-[100vh] max-w-[100vw] max-h-max  overflow-x-hidden">
     <!-- {{ topBar.searchQuery }} -->
     <app-profile-info [userData]="userData" [isLoading]="isLoading"
       [starred_repos_count]="starred_repos_count"></app-profile-info>
@@ -29,8 +47,7 @@ background: linear-gradient(124deg, rgba(255,214,247,1) 0%, rgba(243,242,250,1) 
         </ng-container>
       </div>
       <div *ngIf="!isLoading">
-        <app-repositories [searchSubmitted]="topBar?.searchSubmitted"
-          [githubUsername]="userData.login||''"></app-repositories>
+        <app-repositories [githubUsername]="userData.login||''"></app-repositories>
       </div>
     </div>
   </div>

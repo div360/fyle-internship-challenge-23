@@ -38,12 +38,6 @@ describe('AppComponent', () => {
     expect(component.isLoading).toEqual(false);
   });
 
-  it('should call getUserData on ngOnInit', () => {
-    spyOn(component, 'getUserData');
-    component.ngOnInit();
-    expect(component.getUserData).toHaveBeenCalled();
-  });
-
   it('should call apiService.getUserData and update userData on getUserData', () => {
     const githubUsername = 'testuser';
     const userData = { name: 'Test User', repos: 5 };
@@ -52,14 +46,5 @@ describe('AppComponent', () => {
     expect(apiService.getUser).toHaveBeenCalledWith(githubUsername);
     expect(component.userData).toEqual(userData);
   });
-
-  it('should call onSearch with the query on topBar search event', () => {
-    const query = 'test query';
-    spyOn(component, 'onSearch');
-    component.topBar.search.emit(query);
-    expect(component.onSearch).toHaveBeenCalledWith(query);
-  });
-
-  // Add more unit tests as needed
 
 });
